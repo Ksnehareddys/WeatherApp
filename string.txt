@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Weather</string>
+
+    <!-- EditText hint -->
+    <string name="hint_enter_city">Enter city</string>
+
+    <!-- Datepicker button label -->
+    <string name="btn_pick_date">Pick Date</string>
+
+    <!-- Button label -->
+    <string name="btn_get_weather">Get Weather</string>
+
+    <!-- Default weather TextView message -->
+    <string name="default_weather_text">Please enter a city to get the weather information.</string>
+
+    <!-- Toast error message -->
+    <string name="error_empty_city">Enter a city name</string>
+
+    <!-- Dummy weather display components -->
+    <string name="temperature_label">Temperature:</string>
+    <string name="humidity_label">Humidity:</string>
+    <string name="description_label">Description:</string>
+</resources>

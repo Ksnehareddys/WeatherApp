@@ -1,0 +1,78 @@
+package com.example.weatherapp;
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.Calendar;
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText etCity;
+    private Button btnPickDate;
+    private Button btnGetWeather;
+    private TextView tvWeather;
+    private Calendar calendar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Bind UI components
+        etCity = findViewById(R.id.etCity);
+        btnPickDate = findViewById(R.id.btnPickDate);
+        btnGetWeather = findViewById(R.id.btnGetWeather);
+        tvWeather = findViewById(R.id.tvWeather);
+
+        // Initialize calendar to get current date
+        calendar = Calendar.getInstance();
+
+        // Show Date Picker when the user clicks on the "Pick Date" button
+        btnPickDate.setOnClickListener(v -> showDatePickerDialog());
+
+        // Handle Get Weather button click
+        btnGetWeather.setOnClickListener(v -> {
+            String city = etCity.getText().toString().trim();
+
+            if (city.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Enter a city name", Toast.LENGTH_SHORT).show();
+            } else {
+                // Show random weather information for demonstration
+                String weatherInfo = getWeatherForCityAndDate(city);
+                tvWeather.setText(weatherInfo);
+            }
+        });
+    }
+
+    // Method to show DatePicker Dialog
+    private void showDatePickerDialog() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                MainActivity.this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Set the date on the button when selected
+                    String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                    btnPickDate.setText(date); // Display selected date
+                },
+                year, month, day
+        );
+        datePickerDialog.show();
+    }
+
+    // Simulate getting weather with different conditions based on city and date
+    private String getWeatherForCityAndDate(String city) {
+        // Simulate a list of possible weather conditions
+        String[] weatherConditions = {"Sunny ☀️", "Cloudy 🌥️", "Rainy 🌧️", "Cloudy with Sunny spells 🌤️"};
+
+        // Randomly pick a weather condition from the list
+        Random random = new Random();
+        String randomWeather = weatherConditions[random.nextInt(weatherConditions.length)];
+
+        // Return a weather info string
+        return "City: " + city + "\nDate: " + btnPickDate.getText() + "\nWeather: " + randomWeather;
+    }
+}
